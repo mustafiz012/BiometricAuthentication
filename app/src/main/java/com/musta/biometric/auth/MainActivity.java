@@ -14,7 +14,6 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.concurrent.Executor;
 
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         BiometricManager biometricManager = BiometricManager.from(this);
 
-        if (biometricManager.canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS) {
+        if (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG) == BiometricManager.BIOMETRIC_SUCCESS) {
             attemptBiometricAuth();
         } else {
             Toast.makeText(this, "No Biometric Sensor available/registered", Toast.LENGTH_SHORT).show();
@@ -58,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * These are the detail info for prompt info
-     * @param title prompt title
-     * @param subtitle prompt subtitle
-     * @param description prompt description
-     * @param isDeviceCredentialAllowed  should it use
+     *
+     * @param title                     prompt title
+     * @param subtitle                  prompt subtitle
+     * @param description               prompt description
+     * @param isDeviceCredentialAllowed should it use
      * @return
      */
     private BiometricPrompt.PromptInfo getPromptInfo(String title, String subtitle, String description, boolean isDeviceCredentialAllowed) {
